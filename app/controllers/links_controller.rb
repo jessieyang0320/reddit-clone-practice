@@ -1,5 +1,6 @@
-class LinksController < ApplicationController
 
+class LinksController < ApplicationController
+ 
   before_action :authenticate_user!, except: [:index, :show] 
 
   def index
@@ -37,6 +38,7 @@ class LinksController < ApplicationController
   end 
 
   def show
+
   	@link = Link.find(params[:id])
   end 
 

@@ -1,13 +1,21 @@
 <h1>All Links Posting</h1>
 
 <% @links.each do |link| %>
-  <h3><%= link.title %></h3>
-  <p><%= link.url %></p>
-  <% if link.user == current_user %>
-  <h5><%= link_to "Edit Posting", edit_link_path(link) %></h5>
-  <h5><%= link_to "Delete Posting",link,method: :delete%></h5>
-  <h5><%= link_to "show", link_path(link)%> </h5>
-  <%else%>
-  <h5><%= link_to "show", link_path(link)%> </h5>
-<%end%>
+  <div class="link row clearfix">
+  	<h2><%= link_to link.title, link %><br>
+  	<small class="author">Submitted <%= time_ago_in_words(link.created_at)%> by <%= link.user.email %></small>
+  	</h2>
+
+  	<div class='btn-group'>
+  	  <a class="btn btn-default btn-sm" href="<%= link.url%>">Visit Link</a>
+  		
+  	
+	  <% if link.user == current_user %>
+	  	<%= link_to "Edit Posting", edit_link_path(link),class:"btn btn-default btn-sm" %>
+	  	<%= link_to "Delete Posting",link,method: :delete,class:"btn btn-default btn-sm"%>
+	  	<%= link_to "show", link_path(link),class:"btn btn-default btn-sm"%> 
+
+      <%end%>
+    </div>
+  </div>
 <% end %>
