@@ -1,4 +1,4 @@
-<h1>All Links Posting</h1>
+
 
 <% @links.each do |link| %>
   <div class="link row clearfix">
@@ -8,6 +8,17 @@
 
   	<div class='btn-group'>
   	  <a class="btn btn-default btn-sm" href="<%= link.url%>">Visit Link</a>
+      <%= link_to like_link_path(link), method: :put, class:"btn btn-default btn-sm" do %>
+        <span class="glyphicon glyphicon-chevron-up"></span>
+        Upvote
+        <%= link.get_upvotes.size%>
+      <% end %>
+      <%= link_to dislike_link_path(link), method: :put, class:"btn btn-default btn-sm" do%>
+        <span class="glyphicon glyphicon-chevron-down"></span>
+        Downvote
+        <%= link.get_downvotes.size%>
+      <% end %>
+    </div>
   		
   	
 	  <% if link.user == current_user %>
@@ -15,7 +26,7 @@
 	  	<%= link_to "Delete Posting",link,method: :delete,class:"btn btn-default btn-sm"%>
 	  	<%= link_to "show", link_path(link),class:"btn btn-default btn-sm"%> 
 
-      <%end%>
+    <%end%>
     </div>
-  </div>
+  
 <% end %>

@@ -8,6 +8,17 @@
 
 <div class="btn-group pull-right">
 
+      <%= link_to like_link_path(@link), method: :put, class:"btn btn-default btn-sm" do %>
+        <span class="glyphicon glyphicon-chevron-up"></span>
+        Upvote
+        <%= @link.get_upvotes.size%>
+      <% end %>
+      <%= link_to dislike_link_path(@link), method: :put, class:"btn btn-default btn-sm" do%>
+        <span class="glyphicon glyphicon-chevron-down"></span>
+        Downvote
+        <%= @link.get_downvotes.size%>
+      <% end %>
+
 	
 </div>
 
@@ -17,4 +28,19 @@
 	<%else%>
 		<h5><%= link_to "back", links_path%></h5>
 	<%end %>
+
+  <h3 class="comments_title">
+  <%= @link.comments.count %> Comments
+</h3>
+
+
+
+<%= render :partial => @link.comments%>
+<%= simple_form_for [@link,Comment.new] do |f| %>
+  <div class="field">
+    <%= f.text_area :body, class: "form-control" %>
+  </div>
+  <br>
+  <%= f.submit "Add Comment", class: "btn btn-primary" %>
+<% end %>
 
