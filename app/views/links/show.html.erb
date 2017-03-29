@@ -4,8 +4,12 @@
 <h2>URL:</h2>
 <%= @link.url%>
 <div>
-<h5><%= link_to "back", links_path%></h5>
-<h5><%= link_to "edit", edit_link_path(@link)%></h5>
-<h5><%= link_to "delete", @link, method: :delete%></h5>
+	<%if @link.user == current_user%>
+		<h5><%= link_to "back", links_path%></h5>
+		<h5><%= link_to "edit", edit_link_path(@link)%></h5>
+		<h5><%= link_to "delete", @link, method: :delete%></h5>
+	<%else%>
+		<h5><%= link_to "back", links_path%></h5>
+	<%end %>
 
 </div>

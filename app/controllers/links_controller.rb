@@ -1,17 +1,28 @@
 class LinksController < ApplicationController
 
+  before_action :authenticate_user!, except: [:index, :show] 
+
   def index
   	@links = Link.all
 
   end 
 
   def new
-  	@link = Link.new
+  	@link = current_user.links.build
   end 
 
   def create
-  	Link.create(link_params)
-  	redirect_to links_path
+  	@link=current_user.links.build(link_params)
+    respond_to do |format|
+    if @link.save
+      format.html {redirect_to @link, notice: 'Link was successfully created'}
+      format.json {render :show, status: :created, location: @link}
+    else 
+      format.html {render :new}
+      format.json {render json: @link.errors, status: :unprocessable_entity}
+    end 
+  	
+    end 
   end 
 
   def edit
