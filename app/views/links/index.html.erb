@@ -3,8 +3,11 @@
 <% @links.each do |link| %>
   <h3><%= link.title %></h3>
   <p><%= link.url %></p>
+  <% if link.user == current_user %>
   <h5><%= link_to "Edit Posting", edit_link_path(link) %></h5>
   <h5><%= link_to "Delete Posting",link,method: :delete%></h5>
   <h5><%= link_to "show", link_path(link)%> </h5>
-
+  <%else%>
+  <h5><%= link_to "show", link_path(link)%> </h5>
+<%end%>
 <% end %>
